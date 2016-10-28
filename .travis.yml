@@ -17,7 +17,8 @@ before_install:
 script:
     # Run (or create) a container from webapp:test docker image
     # Bind nuget packages directory
-    - docker run -it --rm -v ~/publish:/root/publish -v ~/.nuget/packages:/root/.nuget/packages webapp:test
+    - pwd
+    - docker run -it --rm -v $PWD/publish:/root/publish -v ~/.nuget/packages:/root/.nuget/packages webapp:test
 
 after_script:
     - pwd
