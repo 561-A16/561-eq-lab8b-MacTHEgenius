@@ -18,3 +18,8 @@ script:
     # Run (or create) a container from webapp:test docker image
     # Bind nuget packages directory
     - docker run -it --rm -v ~/publish:/root/publish -v ~/.nuget/packages:/root/.nuget/packages webapp:test
+
+after_success:
+    - docker build -t webapp:latest -f ./dockerfile/release .
+    - docker login -u=$DOCKER_HUB_ID -p=$DOCKER_HUB_PASSWORD
+    - docker push macthegenius/webapp:latest
