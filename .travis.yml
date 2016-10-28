@@ -23,4 +23,8 @@ after_success:
     - docker build -t macthegenius/webapp:latest -f ./dockerfile/release .
     - docker login -u=$DOCKER_HUB_ID -p=$DOCKER_HUB_PASSWORD
     - docker images
+    - cd /
+    - ls
+    - cd
+    - ls
     - docker push macthegenius/webapp:latest
