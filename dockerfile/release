@@ -1,6 +1,6 @@
 FROM microsoft/dotnet:latest
 
-COPY ~/publish /app
+COPY $HOME/publish /app
 WORKDIR /app
 
 EXPOSE 5000
