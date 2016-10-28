@@ -20,6 +20,9 @@ script:
     - docker run -it --rm -v ~/publish:/root/publish -v ~/.nuget/packages:/root/.nuget/packages webapp:test
 
 after_success:
+    - pwd
+    - ls
+    - cd
     - docker build -t macthegenius/webapp:latest -f ./dockerfile/release .
     - docker login -u=$DOCKER_HUB_ID -p=$DOCKER_HUB_PASSWORD
     - docker images
