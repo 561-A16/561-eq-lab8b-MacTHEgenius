@@ -10,4 +10,4 @@ dotnet test appweb.unittests
 rm -rf $HOME/publish/*
 
 # Publish app
-dotnet publish appweb -o /root/publish -c release
+dotnet publish appweb -o $HOME/publish -c release

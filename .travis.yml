@@ -12,6 +12,10 @@ cache:
 
 before_install:
     # Build a docker image named webapp:test from a docker file placed in ./docker directory.
+    - openssl aes-256-cbc -K $encrypted_26806ca3cce1_key -iv $encrypted_26806ca3cce1_iv -in digital-ocean-for-agile-course.enc -out ~\/.ssh/digital-ocean-for-agile-course -d
+    - eval "$(ssh-agent -s)"
+    - chmod 600 ~/.ssh/digital-ocean-for-agile-course
+    - ssh-add ~/.ssh/digital-ocean-for-agile-course
     - docker build -t webapp:test -f ./dockerfile/test .
 
 script:
@@ -19,14 +23,10 @@ script:
     # Bind nuget packages directory
     - docker run -it --rm -v $PWD/publish:/root/publish -v ~/.nuget/packages:/root/.nuget/packages webapp:test
 
-after_script:
-    - pwd
-    - ls
-    - docker build -t macthegenius/webapp:latest -f ./dockerfile/release .
-    - docker login -u=$DOCKER_HUB_ID -p=$DOCKER_HUB_PASSWORD
-    - docker images
-    - cd /
-    - ls
-    - cd
-    - ls
-    - docker push macthegenius/webapp:latest
+after_success:
+    - chmod +x $PWD/scripts/travis-ci.sh
+    - $PWD/scripts/travis-ci.sh
+    - scp -o StrictHostKeyChecking=no ./scripts/get-release-from-dockerhub-and-start.sh u1442881@159.203.33.172:~/
+    - scp -r -o StrictHostKeyChecking=no $HOME/publish u1442881@159.203.33.172:~/publish 
+    - ssh u1442881@159.203.33.172 "chmod +x get-release-from-dockerhub-and-start.sh"
+    - ssh u1442881@159.203.33.172 "sh get-release-from-dockerhub-and-start.sh"
