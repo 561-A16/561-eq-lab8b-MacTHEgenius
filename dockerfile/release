@@ -1,6 +1,6 @@
 FROM microsoft/dotnet:latest
 
-COPY $HOME/publish /app
+COPY ublish /app
 WORKDIR /app
 
 EXPOSE 5000
