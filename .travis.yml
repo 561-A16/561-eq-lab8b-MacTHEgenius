@@ -14,8 +14,8 @@ before_install:
     # Build a docker image named webapp:test from a docker file placed in ./docker directory.
     - openssl aes-256-cbc -K $encrypted_27448686ddb4_key -iv $encrypted_27448686ddb4_iv -in keys/digital-ocean-agile.enc -out $HOME/.ssh/digital-ocean-agile -d
     - eval "$(ssh-agent -s)"
-    - chmod 600 ~/.ssh/digital-ocean-for-agile-course
-    - ssh-add ~/.ssh/digital-ocean-for-agile-course
+    - chmod 600 ~/.ssh/digital-ocean-agile
+    - ssh-add ~/.ssh/digital-ocean-agile
     - docker build -t webapp:test -f ./dockerfile/test .
 
 script:
