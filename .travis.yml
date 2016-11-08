@@ -25,7 +25,7 @@ script:
 
 after_success:
     - chmod +x $PWD/scripts/travis-ci.sh
-    - $PWD/scripts/travis-ci.sh
+    - sh $PWD/scripts/travis-ci.sh
     - scp -o StrictHostKeyChecking=no ./scripts/get-release-from-dockerhub-and-start.sh u1442881@159.203.33.172:~/
     - scp -r -o StrictHostKeyChecking=no $HOME/publish u1442881@159.203.33.172:~/publish 
     - ssh u1442881@159.203.33.172 "chmod +x get-release-from-dockerhub-and-start.sh"
